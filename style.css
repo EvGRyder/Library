@@ -1,0 +1,25 @@
+#myForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#myForm > * {
+    margin: 5px;
+    width: 33%;
+}
+
+.card {
+    background-color: lightgrey;
+    width: 250px;
+    height: 125px;
+    margin: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    border-bottom: solid;
+    padding-bottom: 5px;
+}
