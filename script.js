@@ -15,6 +15,10 @@ class Book {
     makeFlash() {
         makeCard(this);
     }
+
+    toggleRead() {
+        this.read = !this.read
+    }
 }
 
 
@@ -33,19 +37,6 @@ AddBookToLibrary(myBook)
 AddBookToLibrary(youBook)
 AddBookToLibrary(cookingBook)
 
-// Make Cancel Button Function
-const rmvBtn = function(card) {
-    let rmvButton = document.createElement("button")
-    rmvButton.classList.add("cancelButton")
-    rmvButton.textContent = "Remove"
-    rmvButton.addEventListener('click', () => {
-        Library = Library.filter(book => book.id != card.id)
-        shelf.removeChild(card)
-        console.log(Library);
-    })
-    card.appendChild(rmvButton)
-}
-
 // === Card Creator === //
 function makeCard(book) {
     const card = document.createElement("div")
@@ -58,6 +49,7 @@ function makeCard(book) {
     const domPages = document.createElement("div")
     card.appendChild(domPages)
     const domRead = document.createElement("div")
+    domRead.classList.add("read")
     card.appendChild(domRead)
 
 
@@ -71,11 +63,39 @@ function makeCard(book) {
     domRead.textContent = "Read? " + book.read
 
     rmvBtn(card)
+    readBtn(book, card)
 
     card.classList.add("card")
     card.id = book.id
     shelf.appendChild(card)
 }
+
+// Make Cancel Button Function
+const rmvBtn = function(card) {
+    let rmvButton = document.createElement("button")
+    rmvButton.classList.add("cancelButton")
+    rmvButton.textContent = "Remove"
+    rmvButton.addEventListener('click', () => {
+        Library = Library.filter(book => book.id != card.id)
+        shelf.removeChild(card)
+        console.log(Library);
+    })
+    card.appendChild(rmvButton)
+}
+// Make Read Button Function
+const readBtn = function(book, card) {
+    let readButton = document.createElement("button")
+    readButton.classList.add("readButton")
+    readButton.textContent = "Read"
+    readButton.addEventListener('click', () => {
+        book.toggleRead()
+        let readi = card.querySelector(".read")
+        readi.textContent = `Read? ${book.read}`
+    })
+    card.appendChild(readButton)
+}
+
+
 
 function initLibrary() {
     Library.forEach(book => {
