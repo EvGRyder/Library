@@ -4,8 +4,10 @@
 }
 
 #myForm > * {
+    display: flex;
+    justify-content: space-between;
     margin: 5px;
-    width: 33%;
+    width: 29%;
 }
 
 .card {

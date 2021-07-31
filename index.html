@@ -8,18 +8,23 @@
     <title>Libraree</title>
 </head>
 <body>
-    <form id="myForm" action="">
-        <label for=""> Title:
-            <input type="text">
+
+    <form id="myForm">
+        <label> Title:
+            <input name="title" id="title" type="text">
         </label>
-        <label for=""> Author:
-            <input type="text">
+        <label> Author:
+            <input name="author" id="author" type="text">
         </label>
-        <label for=""> Pages:
-            <input type="text">
+        <label> Pages:
+            <input name="pages" id="pages" type="number" min="1">
         </label>
-        <input type="submit">
+        <label> Read?
+            <input name="read" id="read" type="radio">
+        </label>
+        <input id="submitButton" type="submit">
     </form>
+    
     <h1>this be library</h1>
     <button id="bookAdd">New Book</button>
 

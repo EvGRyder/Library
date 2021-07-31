@@ -9,7 +9,7 @@ function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
-    this.read = read
+    this.read = read || false
 }
 
 function AddBookToLibrary(book) {
@@ -59,3 +59,17 @@ function makeCard(book) {
 }
 
 listBooks()
+
+//== Event Listeners ==//
+const myForm = document.querySelector('#myForm')
+const submitButton = myForm.querySelector('#submitButton')
+
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    let author = myForm.querySelector('#author')
+    let title = myForm.querySelector('#title')
+    let pages = myForm.querySelector('#pages')
+    let newBook = new Book(title.value, author.value, pages.value)
+    makeCard(newBook)
+    console.log(newBook);
+})
