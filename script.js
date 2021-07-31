@@ -5,15 +5,23 @@ const shelf = document.querySelector('#bookshelf')
 
 let Library = []
 
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read || false
+class Book {
+    constructor (title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read || false
+    }
+    makeFlash() {
+        makeCard(this);
+    }
 }
+
+
 
 function AddBookToLibrary(book) {
     Library.push(book)
+    book.id = Library.indexOf(book)
 }
 
 const myBook = new Book("ayy", "du", 1, true)
@@ -25,16 +33,23 @@ AddBookToLibrary(myBook)
 AddBookToLibrary(youBook)
 AddBookToLibrary(cookingBook)
 
-function listBooks() {
-    Library.forEach(book => {
-        book.id = Library.indexOf(book)
-        console.log(book);
-        makeCard(book)
+// Make Cancel Button Function
+const rmvBtn = function(card) {
+    let rmvButton = document.createElement("button")
+    rmvButton.classList.add("cancelButton")
+    rmvButton.textContent = "Remove"
+    rmvButton.addEventListener('click', () => {
+        Library = Library.filter(book => book.id != card.id)
+        shelf.removeChild(card)
+        console.log(Library);
     })
+    card.appendChild(rmvButton)
 }
 
+// === Card Creator === //
 function makeCard(book) {
     const card = document.createElement("div")
+
     
     const domTitle = document.createElement("div")
     card.appendChild(domTitle)
@@ -45,6 +60,7 @@ function makeCard(book) {
     const domRead = document.createElement("div")
     card.appendChild(domRead)
 
+
     domTitle.textContent = "Title: " + book.title
     domTitle.classList.add("title")
 
@@ -52,13 +68,23 @@ function makeCard(book) {
 
     domPages.textContent = "Total pages: " + book.pages
 
-    domRead.textContent = "Read?: " + book.read
+    domRead.textContent = "Read? " + book.read
+
+    rmvBtn(card)
 
     card.classList.add("card")
+    card.id = book.id
     shelf.appendChild(card)
 }
 
-listBooks()
+function initLibrary() {
+    Library.forEach(book => {
+        console.log(book);
+        book.makeFlash()
+    })
+}
+initLibrary()
+
 
 //== Event Listeners ==//
 const myForm = document.querySelector('#myForm')
@@ -69,7 +95,13 @@ submitButton.addEventListener('click', (e) => {
     let author = myForm.querySelector('#author')
     let title = myForm.querySelector('#title')
     let pages = myForm.querySelector('#pages')
-    let newBook = new Book(title.value, author.value, pages.value)
+    let read = myForm.querySelector('#read')
+
+    let newBook = new Book(title.value, author.value, pages.value, read.checked)
+    AddBookToLibrary(newBook)
+    
     makeCard(newBook)
-    console.log(newBook);
+    myForm.reset()
 })
+
+//== Cancel Button Listener ==//
