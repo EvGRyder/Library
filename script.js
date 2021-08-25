@@ -1,6 +1,6 @@
 console.log("hi");
 
-///== DOM QUERIES ==//
+///=== DOM QUERIES ===//
 const shelf = document.querySelector('#bookshelf')
 
 let Library = []
